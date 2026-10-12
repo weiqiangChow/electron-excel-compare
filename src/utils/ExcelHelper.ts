@@ -1,9 +1,10 @@
-import XLSX, { WorkBook } from "xlsx";
+import XLSX from "xlsx";
+import type { WorkBook } from "xlsx";
 
 export interface ExcelDomain {
   items: [] | undefined;
   sheets: string[];
-  workbook: XLSX.WorkBook;
+  workbook: WorkBook;
 }
 
 export interface SheetDomain {

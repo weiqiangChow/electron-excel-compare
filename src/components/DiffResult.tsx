@@ -1,5 +1,5 @@
 import React from "react";
-import { HotTable } from "@handsontable/react";
+import { HotTable } from "@handsontable/react-wrapper";
 import { renderDiff } from "../utils/RenderDiffTable";
 
 interface DiffResult {
@@ -18,18 +18,19 @@ const DiffResultHooks = (props: DiffResult) => {
     readOnly: true,
     renderAllRows: true,
     licenseKey: "non-commercial-and-evaluation",
+    themeName: "ht-theme-main",
   };
 
   return (
     <>
-      <span style={{ fontSize: 24 }}>{"比較結果"}</span>
+      <span style={{ fontSize: 24 }}>{"对比结果"}</span>
       <HotTable
         ref={props.hotTableComponentDiffResult}
         data={[[""]]}
         style={{ width: "100%", padding: 15 }}
         id={"tableresult"}
-        settings={hotDiffResultSettings}
-        renderer={renderDiff}
+        {...hotDiffResultSettings}
+        hotRenderer={renderDiff}
         className="diffhandsontable"
         stretchH={"all"}
       />

@@ -11,7 +11,7 @@ interface Import {
   onSheetSelectChange(e: string): any;
 }
 
-const ImportHooks = (props: Import) => {
+const ImportHooks = ({ sheetname = "Sheet1", sheetlist = null, ...props }: Import) => {
   return (
     <Input.Group
       compact
@@ -28,18 +28,13 @@ const ImportHooks = (props: Import) => {
       ></input>
       <Select
         style={{ width: "40%" }}
-        value={props.sheetname}
+        value={sheetname}
         onChange={(e) => props.onSheetSelectChange(e)}
       >
-        {props.sheetlist}
+        {sheetlist}
       </Select>
     </Input.Group>
   );
-};
-
-ImportHooks.defaultProps = {
-  sheetname: "Sheet1",
-  sheetlist: null,
 };
 
 export default ImportHooks;

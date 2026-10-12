@@ -1,6 +1,7 @@
-const daff = require("daff");
+import daff from "daff/lib/core";
+import type { RefObject } from "react";
 
-export const diff = (left: [][], right: [][], ref: React.RefObject<any>) => {
+export const diff = (left: [][], right: [][], ref: RefObject<any>) => {
   var instance = ref.current.hotInstance;
   var result = [];
   let tableLeft = new daff.TableView(left);

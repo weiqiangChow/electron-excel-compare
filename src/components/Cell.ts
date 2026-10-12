@@ -1,8 +1,8 @@
 class Cell {
-  value: string;
+  value: any;
   instance: any;
 
-  constructor(value: string, instance: any) {
+  constructor(value: any, instance: any) {
     this.value = value;
     this.instance = instance;
   }

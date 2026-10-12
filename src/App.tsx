@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { WorkBook } from "xlsx/types";
+import type { WorkBook } from "xlsx";
 import { Row, Col, Select } from "antd";
 
 import { ExcelHelper, ExcelDomain, SheetDomain } from "./utils/ExcelHelper";
@@ -9,7 +9,6 @@ import RightHooks from "./components/Right";
 import CenterHooks from "./components/Center";
 import DiffResultHooks from "./components/DiffResult";
 
-import "handsontable/dist/handsontable.full.css";
 import "./App.scss";
 import "normalize.css";
 

@@ -1,6 +1,6 @@
 import React from "react";
-import Handsontable from "handsontable";
-import { HotTable } from "@handsontable/react";
+import type Handsontable from "handsontable/base";
+import { HotTable } from "@handsontable/react-wrapper";
 import ImportHooks from "../components/Import";
 
 interface Right {
@@ -24,12 +24,13 @@ const RightHooks = (props: Right) => {
     minCols: 8,
     // colWidth: 100,
     licenseKey: "non-commercial-and-evaluation",
+    themeName: "ht-theme-main",
     id: "table-right",
   };
   return (
     <>
       <div className="right" style={{ padding: 10, marginTop: -25 }}>
-        <h1 style={{ marginLeft: 3 }}>{"<先・modified>"}</h1>
+        <h1 style={{ marginLeft: 3 }}>{"<modified>"}</h1>
         <ImportHooks
           sheetname={props.sheetname}
           sheetlist={props.sheetlist}
@@ -43,7 +44,7 @@ const RightHooks = (props: Right) => {
           ref={props.hotTableComponentRight}
           data={props.sheetdata}
           style={{ width: "98%" }}
-          settings={hotRightSettings}
+          {...hotRightSettings}
           stretchH={"all"}
         />
       </div>
