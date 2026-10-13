@@ -9,4 +9,7 @@ export default defineConfig({
 		port: 3210,
 		open: true,
 	},
+	build: {
+		outDir: 'dist-web'
+	}
 })

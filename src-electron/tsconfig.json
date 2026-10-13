@@ -1,16 +1,23 @@
 {
 	"compilerOptions": {
 		"target": "ESNext",
-		"lib": ["ESNext"],
+		"lib": [
+			"ESNext"
+		],
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
-		"types": ["node"],
+		"types": [
+			"node"
+		],
 		"strict": true,
-		"noEmit": true,
+		"noEmit": false,
+		"rootDir": ".",
+		"outDir": "../dist-electron",
 		"verbatimModuleSyntax": true,
 		"erasableSyntaxOnly": true,
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true
 	},
-	"include": ["**/*.mts"]
+	"include": ["**/*.mts"],
+	"exclude": ["node_modules", "dev.mts"]
 }

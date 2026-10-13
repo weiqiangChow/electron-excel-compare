@@ -125,7 +125,3 @@ dist
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-*.lock
-
-# this project is installed with pnpm
-package-lock.json

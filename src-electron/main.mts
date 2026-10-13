@@ -4,9 +4,10 @@ import { join } from 'node:path'
 
 console.log('-> -> start src-electron/main.mts')
 
+const outDirWebPath = 'dist-web'
 // Set by src-electron/dev.mts, which serves src/ through the Vite dev server.
 const devServerUrl = process.env.VITE_DEV_SERVER_URL
-const indexHtml = join(import.meta.dirname, '..', 'dist', 'index.html')
+const indexHtml = join(import.meta.dirname, '..', outDirWebPath, 'index.html')
 
 const createWindow = () => {
 	const win = new BrowserWindow({
@@ -27,7 +28,7 @@ const createWindow = () => {
 }
 app.whenReady().then(() => {
 	if (!devServerUrl && !existsSync(indexHtml)) {
-		console.error('dist/index.html not found, run "pnpm build" first (or "pnpm dev" to use the Vite dev server).')
+		console.error(outDirWebPath + ' not found, run "pnpm build-web" first (or "pnpm dev" to use the Vite dev server).')
 		app.quit()
 		return
 	}
