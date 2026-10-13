@@ -1,5 +1,5 @@
 const isString = (value: any) => {
-  return typeof value === "string" || value instanceof String;
-};
+	return typeof value === 'string' || value instanceof String
+}
 
-export { isString };
+export { isString }

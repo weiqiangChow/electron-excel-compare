@@ -3,6 +3,52 @@
 - in **Imitation** of https://www.textcompare.org/excel/
 - github page https://yinger.github.io/ts-excel-compare/
 
+## Development
+
+Requires Node.js 22 (`volta` pins the version) and pnpm.
+
+```bash
+pnpm install
+
+pnpm dev            # Vite dev server for src/ + Electron window (hot reload)
+pnpm start          # Vite dev server only, http://localhost:3210
+pnpm build          # type-check and build src/ into dist/
+pnpm start:electron # show the built dist/ in an Electron window
+pnpm typecheck      # type-check src/ and src-electron/
+pnpm format         # format with Prettier
+pnpm format:check   # verify formatting (CI friendly)
+```
+
+Code style is enforced by Prettier (`.prettierrc.json`): single quotes, tabs for indentation
+(one tab renders as 3 spaces), no semicolons. `.editorconfig` and `.vscode/settings.json` pin
+the same indent width for editors, since an editor decides how wide a tab is drawn.
+
+`src-electron/main.mts` loads the URL of the Vite dev server when `VITE_DEV_SERVER_URL`
+is set (that is what `pnpm dev` does, so `src/` is served with hot reload), and loads
+`dist/index.html` otherwise.
+
+Everything in the project is TypeScript: `src/` (renderer), `vite.config.mts` and
+`src-electron/` (main process and dev launcher). The Electron files are executed directly by
+Node's type stripping (Electron 44 bundles Node 24), so there is no build step for them;
+`pnpm typecheck` checks both `tsconfig.json` and `src-electron/tsconfig.json`. Because of
+that, `src-electron/` must stay erasable-syntax-only (no enums, namespaces or parameter
+properties), which `erasableSyntaxOnly` enforces.
+
+`pnpm install` also downloads the Electron binary (the npmmirror mirror configured in
+`.npmrc` is used).
+
+Electron 23 and newer require Windows 10+; Windows 7/8/8.1 support ended with Electron 22.
+Keeping Electron recent also matters for the UI: the Handsontable theme uses `light-dark()`
+and `color-mix()`, which Chromium 108 in Electron 22 silently drops, leaving the grid unstyled.
+
+If Windows 7 support is ever needed again, pin `electron@22` and additionally:
+
+- set `build.target: 'chrome108'`, since Vite 8 targets Chrome 111+ by default;
+- set `css: { transformer: 'lightningcss', lightningcss: { targets: { chrome: 108 << 16 } } }`
+  so Lightning CSS down-levels `light-dark()` (verified: all 74 occurrences are converted).
+  The ~22 `color-mix()` declarations (borders, selection handle, shadows) cannot be
+  down-leveled and will stay missing on Chromium 108.
+
 ## Libraries used in this Tool
 
 - SheetJS https://sheetjs.com/

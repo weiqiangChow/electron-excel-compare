@@ -1,22 +1,22 @@
 class Cell {
-  value: any;
-  instance: any;
+	value: any
+	instance: any
 
-  constructor(value: any, instance: any) {
-    this.value = value;
-    this.instance = instance;
-  }
+	constructor(value: any, instance: any) {
+		this.value = value
+		this.instance = instance
+	}
 
-  getCell(x: number, y: number) {
-    let v = this.instance.getDataAtCell(y, x);
-    if (v === null) return v;
-    else if (v === undefined) return "";
-    return "" + v;
-  }
+	getCell(x: number, y: number) {
+		let v = this.instance.getDataAtCell(y, x)
+		if (v === null) return v
+		else if (v === undefined) return ''
+		return '' + v
+	}
 
-  getValue() {
-    return this.value;
-  }
+	getValue() {
+		return this.value
+	}
 }
 
-export default Cell;
+export default Cell
