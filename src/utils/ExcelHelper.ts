@@ -13,7 +13,7 @@ export interface SheetDomain {
 
 export class ExcelHelper {
 	public static SheetJSFT = () => {
-		var jsft = ['xlsx']
+		var jsft = ['xlsx', 'xls']
 		return jsft
 			.map(function (x) {
 				return '.' + x

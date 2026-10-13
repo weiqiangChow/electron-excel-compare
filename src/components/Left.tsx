@@ -30,7 +30,7 @@ const LeftHooks = (props: Left) => {
 	return (
 		<>
 			<div className="left" style={{ padding: 10, marginTop: -25 }}>
-				<h1 style={{ marginLeft: 3 }}>{'<original>'}</h1>
+				<h1 style={{ marginLeft: 3 }}>{'<源·original>'}</h1>
 				<ImportHooks
 					sheetname={props.sheetname}
 					sheetlist={props.sheetlist}
