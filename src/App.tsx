@@ -13,7 +13,7 @@ import './App.scss'
 import 'normalize.css'
 
 function App() {
-	var excelHelper = new ExcelHelper()
+	const excelHelper = new ExcelHelper()
 	const [leftsheetname, setLeftSheetname] = useState('Sheet1')
 	const [leftsheetlist, setLeftSheetlist] = useState<any[] | null>(null)
 	const [hotTableComponentLeft] = useState(React.createRef())
@@ -40,7 +40,7 @@ function App() {
 						console.log(err)
 					} else {
 						let sheetnames = []
-						for (var i = 0; i < resp.sheets.length; i++) {
+						for (let i = 0; i < resp.sheets.length; i++) {
 							sheetnames.push(
 								<Select.Option key={resp.sheets[i]} value={resp.sheets[i]}>
 									{resp.sheets[i]}
@@ -65,7 +65,7 @@ function App() {
 	}
 
 	const onSheetFieldChange = (selectedSheetName: string, field: string) => {
-		var wb = null
+		let wb = null
 		if (field === 'left') wb = leftWorkbook
 		else wb = rightWorkbook
 
