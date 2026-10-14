@@ -104,7 +104,10 @@ const buildDiffWorkbook = (hotInstance: any) => {
 		rows.push(texts)
 		categories.push(cellCategories)
 	})
-
+	/**
+	 * TODO: 是否需要根据表头字段过滤数据？？
+	 * 如果需要的话，在这里对数据进行修改来实现这个功能
+	 */
 	const worksheet = XLSX.utils.aoa_to_sheet(rows, { sheetStubs: true })
 
 	rows.forEach((row, rowIndex) => {

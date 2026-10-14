@@ -14,21 +14,20 @@ const DiffResultHooks = (props: DiffResult) => {
 	const onExportClick = async () => {
 		const instance = props.hotTableComponentDiffResult.current?.hotInstance
 
-		setExporting(true)
+		// setExporting(true)
 
-		try {
+		// try {
 			const result = await exportDiffResult(instance)
-
-			if (result.status === 'empty') {
-				message.warning('还没有对比结果，请先点击 Diff')
-			} else if (result.status === 'saved') {
-				message.success(result.path ? `已导出到 ${result.path}` : '已导出', 5)
-			}
-		} catch (err) {
-			message.error(`导出失败：${err instanceof Error ? err.message : String(err)}`)
-		} finally {
-			setExporting(false)
-		}
+		// 	if (result.status === 'empty') {
+		// 		message.warning('还没有对比结果，请先点击 Diff')
+		// 	} else if (result.status === 'saved') {
+		// 		message.success(result.path ? `已导出到 ${result.path}` : '已导出', 5)
+		// 	}
+		// } catch (err) {
+		// 	message.error(`导出失败：${err instanceof Error ? err.message : String(err)}`)
+		// } finally {
+		// 	setExporting(false)
+		// }
 	}
 
 	const hotDiffResultSettings = {
