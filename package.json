@@ -34,6 +34,7 @@
 	"scripts": {
 		"dev-app": "node src-electron/dev.mts",
 		"dev-web": "vite",
+		"dev-tauri": "cargo tauri dev",
 		"typecheck": "tsc --noEmit && tsc --noEmit -p src-electron",
 		"build-web": "pnpm run typecheck && vite build",
 		"build-elt": "pnpm run build-web && tsc -p src-electron",
