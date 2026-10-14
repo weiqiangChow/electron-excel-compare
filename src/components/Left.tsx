@@ -21,7 +21,8 @@ const LeftHooks = (props: Left) => {
 		rowHeaders: true,
 		height: 305,
 		minRows: 12,
-		minCols: 8,
+		// 这里故意不设置 `minCols`：Handsontable 补列的方式是往导入的行中间插入空列，
+		// 会把真实的列挤出渲染范围。
 		// colWidth: 100,
 		licenseKey: 'non-commercial-and-evaluation',
 		themeName: 'ht-theme-main',

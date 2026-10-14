@@ -46,6 +46,27 @@ function isMarkerCell(row: number, col: number, category: string) {
 	return row < BAND_ROWS || col < BAND_COLS || MARKER_CATEGORIES.has(category)
 }
 
+/**
+ * daff 只在渲染时才把原始数据变成界面上看到的文字（标记替换、`→` 等 pretty 形式），
+ * 所以导出（src/utils/ExportDiff.ts）也走这里，保证导出的内容和界面上显示的一模一样。
+ */
+export function getDiffCell(value: Handsontable.CellValue, instance: any, row: number, col: number) {
+	var tt = new Cell(value, instance)
+	var view = new daff.coopy.SimpleView()
+	var cell = daff.coopy.DiffRender.renderCell(tt, view, col, row)
+	var category = cell.category
+	var text = cell.pretty_value
+
+	if (isMarkerCell(row, col, category)) {
+		var label = MARKER_LABELS[text]
+		if (label !== undefined) {
+			text = label
+		}
+	}
+
+	return { text, category }
+}
+
 export function renderDiff(
 	instance: any,
 	td: HTMLTableCellElement,
@@ -55,23 +76,12 @@ export function renderDiff(
 	value: Handsontable.CellValue,
 	cellProperties: Handsontable.CellProperties,
 ) {
-	var tt = new Cell(value, instance)
-	var view = new daff.coopy.SimpleView()
-	var cell = daff.coopy.DiffRender.renderCell(tt, view, col, row)
-	var className = cell.category
-	var value2 = cell.pretty_value
+	var rendered = getDiffCell(value, instance, row, col)
 
-	if (isMarkerCell(row, col, className)) {
-		var label = MARKER_LABELS[value2]
-		if (label !== undefined) {
-			value2 = label
-		}
+	if (rendered.category !== '') {
+		td.className = rendered.category
 	}
 
-	if (className !== '') {
-		td.className = className
-	}
-
-	td.innerHTML = value2
-	return value2
+	td.innerHTML = rendered.text
+	return rendered.text
 }

@@ -3,13 +3,13 @@
 }
 
 .diffhandsontable td.add {
-	background-color: #7fff7f !important;
+	background-color: #7fff7f9e !important;
 }
 .diffhandsontable td.remove {
-	background-color: #ff7f7f !important;
+	background-color: #ff7f7f9e !important;
 }
 .diffhandsontable td.modify {
-	background-color: #7f7fff !important;
+	background-color: #bdbdff9e !important;
 }
 .diffhandsontable td.conflict {
 	background-color: red !important;
@@ -28,12 +28,11 @@
 }
 .diffhandsontable td,
 .diffhandsontable th {
-	// border: 1px solid #2d4068;
 	padding: 3px 7px 2px;
 }
 .diffhandsontable td.header,
 .diffhandsontable th {
-	background-color: #aaf !important;
+	background-color: #aaa !important;
 	font-weight: 700;
 	padding-bottom: 4px;
 	padding-top: 5px;
@@ -53,4 +52,30 @@
 }
 .diffhandsontable td:first-child {
 	border-left: 1px solid #2d4068;
+}
+
+.result-header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}
+.result-header .result-export {
+	position: absolute;
+	right: 20px;
+}
+
+// 选中单元格时，点亮顶部标记行 / 左侧标记列里对应的那一格（效果和 Left/Right 里表头高亮一致）。
+// 这两个 class 由 DiffResult 的 currentRowClassName/currentColClassName 打在整行/整列上，
+// 但顶部 3 行、左侧 2 列位于固定的 overlay 克隆层，限定在这些容器内就只点亮标记行/标记列。
+#tableresult {
+	.ht_clone_top .diff-hl-col,
+	.ht_clone_top_inline_start_corner .diff-hl-col,
+	.ht_clone_inline_start .diff-hl-row,
+	.ht_clone_top_inline_start_corner .diff-hl-row {
+		// background-color: var(--ht-header-highlighted-background-color) !important;
+		color: #000000 !important	;
+		font-size: 16px;
+		font-weight: bold;
+	}
 }
