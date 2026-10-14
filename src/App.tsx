@@ -1,12 +1,11 @@
 import React, { useState, useRef } from 'react'
 import type { WorkBook } from 'xlsx'
-import { Row, Col, Select, Button } from 'antd'
+import { Row, Col, Select, Button, Input } from 'antd'
 
 import { ExcelHelper, ExcelDomain, SheetDomain } from './utils/ExcelHelper'
 import { diff } from './utils/Diff'
 import LeftHooks from './components/Left'
 import RightHooks from './components/Right'
-import CenterHooks from './components/Center'
 import DiffResultHooks from './components/DiffResult'
 
 import './App.scss'
@@ -24,6 +23,7 @@ function App() {
 	const [hotTableComponentRight] = useState(React.createRef())
 	const [rightsheetdata, setRightSheetData] = useState(JSON.parse(JSON.stringify(ExcelHelper.BlankData(12, 8))))
 	const [rightWorkbook, setRightWorkbook] = useState<WorkBook>()
+	const [headerRowNumber, setHeaderRowNumber] = useState<number | undefined>(undefined)
 	const [hotTableComponentDiffResult] = useState(React.createRef())
 
 	const leftFileSelectRef = useRef<any>(null)
@@ -89,7 +89,7 @@ function App() {
 	return (
 		<div className="App">
 			<Row>
-				<Col span={11}>
+				<Col span={12}>
 					<LeftHooks
 						sheetname={leftsheetname}
 						sheetlist={leftsheetlist}
@@ -100,29 +100,7 @@ function App() {
 						fileRef={leftFileSelectRef}
 					/>
 				</Col>
-				<Col span={2}>
-					<CenterHooks
-						onDiffBtnClick={(e) => {
-							diff(leftsheetdata, rightsheetdata, hotTableComponentDiffResult)
-						}}
-						onSampleBtnClick={(e) => {
-							setLeftSheetData(ExcelHelper.SampleDataLeft)
-							setRightSheetData(ExcelHelper.SampleDataRight)
-						}}
-						onResetBtnClick={(e) => {
-							// window.location.reload();
-							leftFileSelectRef.current.value = ''
-							rightFileSelectRef.current.value = ''
-							setLeftSheetlist(null)
-							setRightSheetlist(null)
-							setLeftSheetname('Sheet1')
-							setRightSheetname('Sheet1')
-							setLeftSheetData(JSON.parse(JSON.stringify(ExcelHelper.BlankData(12, 8))))
-							setRightSheetData(JSON.parse(JSON.stringify(ExcelHelper.BlankData(12, 8))))
-						}}
-					/>
-				</Col>
-				<Col span={11}>
+				<Col span={12}>
 					<RightHooks
 						sheetname={rightsheetname}
 						sheetlist={rightsheetlist}
@@ -133,8 +111,45 @@ function App() {
 						fileRef={rightFileSelectRef}
 					/>
 				</Col>
+				<Col span={24} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 10 }}>
+					<Button
+						type="dashed"
+						onClick={() => {
+							setLeftSheetData(ExcelHelper.SampleDataLeft)
+							setRightSheetData(ExcelHelper.SampleDataRight)
+						}}
+					>
+						Sample Demo
+					</Button>
+					<Button
+						id="btn-clean"
+						type="default"
+						onClick={() => {
+							leftFileSelectRef.current.value = ''
+							rightFileSelectRef.current.value = ''
+							setLeftSheetlist(null)
+							setRightSheetlist(null)
+							setLeftSheetname('Sheet1')
+							setRightSheetname('Sheet1')
+							setLeftSheetData(JSON.parse(JSON.stringify(ExcelHelper.BlankData(12, 8))))
+							setRightSheetData(JSON.parse(JSON.stringify(ExcelHelper.BlankData(12, 8))))
+						}}
+					>
+						Reset
+					</Button>
+					<div style={{width: '150px'}}>
+						<Input onChange={(e) => setHeaderRowNumber(+e.target.value)} placeholder="表头行号" />
+					</div>
+					<Button
+						id="btn-diff"
+						type="primary"
+						onClick={() => diff(leftsheetdata, rightsheetdata, hotTableComponentDiffResult, headerRowNumber)}
+					>
+						Diff
+					</Button>
+				</Col>
 				<Col span={24} style={{ textAlign: 'center' }}>
-					<DiffResultHooks hotTableComponentDiffResult={hotTableComponentDiffResult} />
+					<DiffResultHooks hotTableComponentDiffResult={hotTableComponentDiffResult}/>
 				</Col>
 			</Row>
 		</div>
