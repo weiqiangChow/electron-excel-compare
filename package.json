@@ -20,6 +20,7 @@
 		"xlsx-js-style": "^1.2.0"
 	},
 	"devDependencies": {
+		"@tauri-apps/cli": "^2.12.3",
 		"@testing-library/jest-dom": "^4.2.4",
 		"@testing-library/react": "^9.5.0",
 		"@testing-library/user-event": "^7.2.1",
@@ -38,7 +39,7 @@
 	"scripts": {
 		"dev-app": "node src-electron/dev.mts",
 		"dev-web": "vite",
-		"dev-tauri": "cargo tauri dev",
+		"dev-tauri": "tauri dev",
 		"typecheck": "tsc --noEmit && tsc --noEmit -p src-electron",
 		"build-web": "pnpm run typecheck && vite build",
 		"build-elt": "pnpm run build-web && tsc -p src-electron",
