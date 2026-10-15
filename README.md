@@ -77,3 +77,9 @@ Otherwise you can also select all (`Ctrl-A`) and copy (`Ctrl-C`) and then paste 
 - **+++** This has been added in second/modified file.
 - **—--** This has been removed in second/modified file.
   ![diff](difference.png)
+
+## What does → indicate?
+
+- **→** This row exists in both files, but some of its cells changed; every changed cell shows both values (`old→new`).
+  Rows that daff reports as removed (`---`) + added (`+++`) with the same unique key are merged into such a single `→` row,
+  so set the header row number and pick the unique field(s) before clicking >>Diff<< if you want that.

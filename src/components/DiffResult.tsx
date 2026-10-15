@@ -1,35 +1,13 @@
 import React from 'react'
 import { HotTable } from '@handsontable/react-wrapper'
 import { renderDiff } from '../utils/RenderDiffTable'
-import { exportDiffResult } from '../utils/ExportDiff'
-import { Button, message } from 'antd'
 
 interface DiffResult {
+	sheetdata: any[][]
 	hotTableComponentDiffResult: React.RefObject<any>
 }
 
 const DiffResultHooks = (props: DiffResult) => {
-	const [exporting, setExporting] = React.useState(false)
-
-	const onExportClick = async () => {
-		const instance = props.hotTableComponentDiffResult.current?.hotInstance
-
-		// setExporting(true)
-
-		// try {
-			const result = await exportDiffResult(instance)
-		// 	if (result.status === 'empty') {
-		// 		message.warning('还没有对比结果，请先点击 Diff')
-		// 	} else if (result.status === 'saved') {
-		// 		message.success(result.path ? `已导出到 ${result.path}` : '已导出', 5)
-		// 	}
-		// } catch (err) {
-		// 	message.error(`导出失败：${err instanceof Error ? err.message : String(err)}`)
-		// } finally {
-		// 	setExporting(false)
-		// }
-	}
-
 	const hotDiffResultSettings = {
 		height: 400,
 		minRows: 10,
@@ -56,18 +34,9 @@ const DiffResultHooks = (props: DiffResult) => {
 
 	return (
 		<>
-			<div className="result-header">
-				<span style={{ fontSize: 24 }}>{'对比结果'}</span>
-				<div className="result-export">
-					<Button type="primary" loading={exporting} onClick={onExportClick}>
-						Export
-					</Button>
-				</div>
-			</div>
-
 			<HotTable
 				ref={props.hotTableComponentDiffResult}
-				data={[['']]}
+				data={props.sheetdata}
 				style={{ width: '100%', padding: 15 }}
 				id={'tableresult'}
 				{...hotDiffResultSettings}
@@ -79,4 +48,4 @@ const DiffResultHooks = (props: DiffResult) => {
 	)
 }
 
-export default DiffResultHooks
+export default React.memo(DiffResultHooks)
